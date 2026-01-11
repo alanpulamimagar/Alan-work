@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BOOSE</name>
+    </assembly>
+    <members>
+        <member name="T:BOOSE.AboutBOOSE">
+            <summary>
+            About text displayed in the UI.
+            </summary>
+        </member>
+        <member name="M:BOOSE.AboutBOOSE.about">
+            <summary>
+            Returns information about this BOOSE interpreter implementation. 
+            </summary>
+        </member>
+        <member name="T:BOOSE.Ast.CommandStatement">
+            <summary>
+            Statement wrapper for executable commands.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Ast.WriteStatement">
+            <summary>
+            Simple output + draw-text statement.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Ast.TextCommand">
+             <summary>
+             Draws text at the current pen position.
+            
+             Many BOOSE example programs (and some UI templates) use a <c>text</c>
+             command rather than a <c>write</c> statement. This command supports both:
+            
+             - Raw text: <c>text hello world</c>
+             - Expression text: <c>text "hello"</c> or <c>text someVar</c>
+             </summary>
+        </member>
+        <member name="T:BOOSE.Ast.IExpression">
+            <summary>
+            An evaluatable expression.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Ast.IStatement">
+            <summary>
+            Executable program statement.
+            </summary>
+        </member>
+        <member name="T:BOOSE.BooseInterpreter">
+            <summary>
+            Executes BOOSE programs against an <see cref="T:BOOSE.ICanvas"/>.
+            </summary>
+        </member>
+        <member name="M:BOOSE.BooseInterpreter.Execute(System.String)">
+            <summary>
+            Parse and execute a BOOSE program.
+            </summary>
+        </member>
+        <member name="T:BOOSE.ICanvas">
+            <summary>
+            Minimal canvas contract required by the BOOSE interpreter.
+            The WinForms app provides an implementation (CommandCanvas).
+            </summary>
+        </member>
+        <member name="P:BOOSE.ICanvas.Xpos">
+            <summary>Current pen X position.</summary>
+        </member>
+        <member name="P:BOOSE.ICanvas.Ypos">
+            <summary>Current pen Y position.</summary>
+        </member>
+        <member name="P:BOOSE.ICanvas.PenColour">
+            <summary>Pen colour used for drawing.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.Clear">
+            <summary>Clear the canvas to a blank background.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.Reset">
+            <summary>Reset the canvas (clear + reset pen state).</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.Set(System.Int32,System.Int32)">
+            <summary>Resize the underlying drawing surface.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.SetColour(System.Int32,System.Int32,System.Int32)">
+            <summary>Set the pen colour using RGB values (0-255).</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.MoveTo(System.Int32,System.Int32)">
+            <summary>Move the pen to (x,y) without drawing.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.DrawTo(System.Int32,System.Int32)">
+            <summary>Draw a line to (x,y) and update pen position.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.Circle(System.Int32,System.Boolean)">
+            <summary>Draw a circle at the current pen position.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.Rect(System.Int32,System.Int32,System.Boolean)">
+            <summary>Draw a rectangle from the current pen position.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.Tri(System.Int32,System.Int32)">
+            <summary>Draw a triangle based on width and height.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.WriteText(System.String)">
+            <summary>Write text at the current pen position.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.SaveImage(System.String,System.Drawing.Imaging.ImageFormat)">
+            <summary>Save the drawing surface as an image.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.LoadImage(System.String)">
+            <summary>Load an image as the drawing surface.</summary>
+        </member>
+        <member name="M:BOOSE.ICanvas.getBitmap">
+            <summary>Return the underlying bitmap for display.</summary>
+        </member>
+        <member name="T:BOOSE.Parsing.BooseProgramParser">
+            <summary>
+            Line-oriented parser for the BOOSE language as used in the supplied example programs.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Parsing.ExpressionParser">
+            <summary>
+            Parses BOOSE expressions into an expression tree.
+            Supports numeric, boolean, and string expressions.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Runtime.ArrayValue">
+            <summary>
+            Typed array value for BOOSE.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Runtime.CommandFactory">
+             <summary>
+             Factory used for mapping BOOSE command keywords (moveto, pen, circle, ...)
+             to ICommand objects.
+            
+             Factory pattern requirement: commands are created here rather than scattered across the codebase.
+             </summary>
+        </member>
+        <member name="T:BOOSE.Runtime.CommandFactorySingleton">
+            <summary>
+            Singleton registry to provide a single CommandFactory instance.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Runtime.ExecutionContext">
+            <summary>
+            Holds runtime state for program execution: variable scopes, method registry, canvas, and output.
+            </summary>
+        </member>
+        <member name="P:BOOSE.Runtime.ExecutionContext.Methods">
+            <summary>All methods defined in the program.</summary>
+        </member>
+        <member name="M:BOOSE.Runtime.ExecutionContext.Assign(System.String,BOOSE.Runtime.Value)">
+            <summary>
+            Assigns to the nearest existing scope; if not found, creates in current scope.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Runtime.MethodDef">
+            <summary>
+            Represents a BOOSE method definition.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Runtime.Value">
+            <summary>
+            Discriminated union used to represent BOOSE values.
+            </summary>
+        </member>
+        <member name="T:BOOSE.Runtime.ValueKind">
+            <summary>
+            Supported BOOSE types.
+            </summary>
+        </member>
+    </members>
+</doc>

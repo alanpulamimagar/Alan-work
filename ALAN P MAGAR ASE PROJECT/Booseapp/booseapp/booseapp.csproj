@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- You enabled XML docs, so CS1591 warnings happen unless you comment everything -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<!-- Suppress "Missing XML comment" warnings -->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+
+		<!-- Optional: standard doc output location -->
+		<DocumentationFile>bin\Debug\net8.0-windows\booseapp.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BOOSE\BOOSE.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Form1.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>
